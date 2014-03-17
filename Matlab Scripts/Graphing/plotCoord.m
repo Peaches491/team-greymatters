@@ -1,5 +1,5 @@
 function plotCoord (pos, R, label)
-scale = 1;
+scale = 0.8;
 
 unit_x = R*[1;0;0];
 unit_y = R*[0;1;0];
