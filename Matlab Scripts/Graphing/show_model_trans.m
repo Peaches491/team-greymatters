@@ -1,4 +1,4 @@
-function [h] =  show_model_trans( path, T, faceColor, alpha, edgeColor)
+function [X Y, Z] =  show_model_trans( path, T, faceColor, alpha, edgeColor)
 %SHOW_MODEL_TRANS Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -12,5 +12,9 @@ function [h] =  show_model_trans( path, T, faceColor, alpha, edgeColor)
     Z = reshape(P(t(:, 1:3)', 3)', [3, size(t, 1)]);
     
     patch(X, Y, Z, faceColor, 'EdgeColor', edgeColor, 'FaceAlpha', alpha);
+    
+    X = X';
+    Y = Y';
+    Z = Z';
 end
 

@@ -19,7 +19,8 @@ TS = eye(4);
 TS(1:3, 1:3) = compose_rotation(0, -0.6*pi/2, 0);
 
 light('Position',[1 3 2]); light('Position',[-3 -1 3]); material shiny; 
-show_model_trans('Models/brain_low.bod', TS, [1 0.75 0.65], 0.6, 'none');
+h = show_model_trans('Models/brain_low.bod', TS, [1 0.75 0.65], 0.6, 'none');
+stlwrite('test.stl', h(1, :), h(2, :), h(3, :))
 show_model_trans('Models/skull_low.bod', TS, 'white', 0.4, 'none');
 show_model_trans('Models/jaw_low.bod', TS, 'white', 0.4, 'none');
 show_model_trans('Models/teeth_low.bod', TS, 'white', 0.4, 'none');
