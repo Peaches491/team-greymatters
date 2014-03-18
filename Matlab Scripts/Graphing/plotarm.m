@@ -1,0 +1,29 @@
+function [ T ] = plotarm( j1, j2, j3, j4, j5, j6 )
+    linkedJointFix = @(Q) [Q(1) Q(2) Q(2)+Q(3) Q(4) Q(5) Q(6)];
+    generateTransforms;
+    
+    Q = [ j1, j2, j3, j4, j5, j6 ];
+    Q = linkedJointFix(Q);
+    
+    plotSetup(0.90, 148, 15, 'perspective');
+
+    paren = @(x, varargin) x(varargin{:});
+
+    T = subs(T01*T12*T23*T34*T45*T56, Q_sym, Q);
+    
+    vec = [0; 0; 0; 1];
+    x = subs(cat(2, paren((TB*vec), (1:3)), ...
+        paren(T0*vec, (1:3)), ...
+        paren(T01*vec, (1:3)), ...
+        paren(T01*T12*vec, (1:3)), ...
+        paren(T01*T12*T23*vec, (1:3)), ...
+        paren(T01*T12*T23*T34*vec, (1:3)), ...
+        paren(T01*T12*T23*T34*T45*vec, (1:3)), ...
+        paren(T01*T12*T23*T34*T45*T56*vec, (1:3))), Q_sym, Q);
+    plot3( x(1, :), x(2, :), x(3, :) , 'Color', [0.5 0.5 0.5], ...
+        'LineWidth', 5, 'Marker', 'o', 'MarkerEdgeColor', [1 0.3 1], ...
+        'MarkerFaceColor', [1 0.3 1], 'MarkerSize', 8, 'LineSmoothing', 'off');
+    
+
+end
+
