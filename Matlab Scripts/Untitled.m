@@ -1,35 +1,20 @@
-clf()
+function x =  Untitled(a)
+    d_x = a(1);
+    d_y = a(2);
+    d_z = a(3);
+    r = a(4);
 
-size = 10;
-plotSetup(size)
-axis([-size, size, -size, size, -size, size])
-view(270, 30)
-light('Position',[1 3 2]); light('Position',[-3 -1 3]); material shiny;
+    [x,y,z] = sphere(12);
 
-[x,y,z] = sphere();
+    x = x*r + d_x;
+    y = y*r + d_y;
+    z = z*r + d_z;
 
-d_x = 0;
-d_y = 0;
-d_z = -4;
-
-c = [d_x, d_y, d_z];
-r = 8
-
-x = x*r + d_x;
-y = y*r + d_y;
-z = z*r + d_z;
-
-surf2patch(surf(x, y, z, 'FaceColor', 'y', 'FaceAlpha', 0.4, 'EdgeColor', 'none'));
+    surf2patch(surf(x, y, z, 'FaceColor', 'y', 'FaceAlpha', 1.0, 'EdgeColor', 'none'));
 
 
-X = [0, 0, 3];
-inside = sum((c-X).^2) <= r^2;
-
-if inside
-    scatter3(X(1), X(2), X(3), 'r');
-else
-    scatter3(X(1), X(2), X(3), 'k');
-end
-
-S= load('Models/brain_low.bod', '-mat');
-    
+%     c = [d_x, d_y, d_z];
+%     X = [0, 0, 3];
+%     inside = sum((c-X).^2) <= r^2;
+    x = 0;
+end    
