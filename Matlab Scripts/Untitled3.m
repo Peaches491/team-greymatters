@@ -25,7 +25,7 @@ TS(3, 4) = 0.0;
 show_model_trans('Models/brain_low.bod', TS, [1 0.75 0.65], 0.4, 'none');
 
 
-point = (rand(500000, 3).*1.2 + -0.5).*0.2;
+point = (rand(500, 3).*1.2 + -0.5).*0.2;
 % point = a(:, 1:3)
 
 
