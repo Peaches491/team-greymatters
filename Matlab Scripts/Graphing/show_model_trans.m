@@ -1,4 +1,4 @@
-function [X Y, Z] =  show_model_trans( path, T, faceColor, alpha, edgeColor)
+function [X, Y, Z] =  show_model_trans( path, T, faceColor, alpha, edgeColor)
 %SHOW_MODEL_TRANS Summary of this function goes here
 %   Detailed explanation goes here
 
