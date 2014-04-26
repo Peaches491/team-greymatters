@@ -11,7 +11,9 @@ addpath('Models');
 addpath('RCM Modeling');
 plotSetup(0.3);
 % view(-90, 42)
-view(-90, 0);
+% view(0, 0);
+view(-90, 90);
+camproj('orthographic');
 % view(3);
 
 global endLength;
@@ -28,16 +30,17 @@ L1 = .12;
 L2 = .2;
 r1 = 0.025;
 r2 = 0.025;
-L3 = .1;
+L3 = .15;
 
-p1 = [0.09443, 0.02405, 0.1042]; %workspace location 
-p2 = [0.06, 0.02, 0.07]; %entry location 
+p1 = [0.1099, 0.05183, 0.0251]; %entry location 
+scatter3(p1(1), p1(2), p1(3), 120, 'filled');
+p2 = [0.07896, 0.03594, 0.014]; %workspace location
+scatter3(p2(1), p2(2), p2(3), 100, 'r', 'filled');
 
 
-[theta1, theta2, Tx, Ty, Tz] = RCMInvKin(L1, L2, L3, p1, p2);
-[L1X, L1Y, L1Z, L2X, L2Y, L2Z] = makeRCM(L1, L2, L3, r1, r2, Tz, Ty, Tx, theta1, theta2);
-% [L1X L1Y L1Z L2X L2Y L2Z] = makeRCM(L1, L2, L3, r1, r2, 0, -0.2, 0, 0, 0);
-plotModel(L1X, L1Y, L1Z, L2X, L2Y, L2Z);
+[theta1, theta2, Tx, Ty, Tz] = RCMInvKin(L1, L2, L3, p1, p2)
+% [L1X, L1Y, L1Z, L2X, L2Y, L2Z] = makeRCM(L1, L2, L3, r1, r2, Tz, Ty, Tx, theta1, theta2);
+% plotModel(L1X, L1Y, L1Z, L2X, L2Y, L2Z);
 PlotRCM(Tx, Ty, Tz, theta1, theta2 ,L3,L1,L2);
 
 
@@ -62,13 +65,9 @@ sphere_vec = tfSpheres(spheres, TS);
 
 show_model_trans_stl('Models/newMeshes/brain_low.stl', TS, [1 0.75 0.65], 0.4, 'none');
 show_model_trans_stl('Models/newMeshes/skin_tilt_low.stl', TS, 'white', 0.4, 'none');
-% show_model_trans_stl('Models/newMeshes/skull.stl', TS, 'white', 0.4,
-% 'none');
+% show_model_trans_stl('Models/newMeshes/skull.stl', TS, 'white', 0.4, 'none');
 
-axis equal;
-grid on;
-asize = 0.25;
-axis([-1*asize, asize, -1*asize, asize, -1*asize/1.5, asize]);
+
 
 
 % res = 0.01;
