@@ -14,14 +14,14 @@ p2 = [0,5,0]; %workspace location
 
 
 
-% [L1X L1Y L1Z L2X L2Y L2Z] = makeRCM(L1, L2, L3, r1, r2, Tz, Ty, Tx, theta1, theta2);
-% 
-% clf;
-% view(3);
-% PlotRCM(Tx,Ty,Tz,theta1,theta2,L3,L1,L2);
-% hold on;
-% plotModel(L1X, L1Y, L1Z, L2X, L2Y, L2Z);
+[L1X L1Y L1Z L2X L2Y L2Z] = makeRCM(L1, L2, L3, r1, r2, Tz, Ty, Tx, theta1, theta2);
+
+clf;
+view(3);
+PlotRCM(Tx,Ty,Tz,theta1,theta2,L3,L1,L2);
+hold on;
+plotModel(L1X, L1Y, L1Z, L2X, L2Y, L2Z);
 
 
-% axis([-10, 10, -10, 10, -10, 10]);
-% axis equal
+axis([-10, 10, -10, 10, -10, 10]);
+axis equal

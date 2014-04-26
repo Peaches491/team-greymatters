@@ -2,8 +2,8 @@ function [L1X L1Y L1Z L2X L2Y L2Z] = makeRCM(L1, L2, L3, r1, r2, Tz, Ty, Tx, the
 
 
 %% Link 1
-[L1S1X L1S1Y L1S1Z] = makeLink(L1,.5,30,1);
-[L1S2X L1S2Y L1S2Z] = makeLink(L1,.5,30,1);
+[L1S1X L1S1Y L1S1Z] = makeLink(L1,r1,30,1);
+[L1S2X L1S2Y L1S2Z] = makeLink(L1,r1,30,1);
 
 %  R = getRotation('X', pi);
 %  p = [ 0; 0; 0];

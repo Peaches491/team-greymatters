@@ -1,0 +1,13 @@
+import bpy
+
+f = open('head.spheres', 'w')
+
+names = [o for o in bpy.data.objects.keys() if 'Sphere' in o]
+
+for name in names:
+	loc = bpy.data.objects[name].location
+	scl = bpy.data.objects[name].scale
+	
+	f.write(str(loc.x) +', '+ str(loc.y) +', '+ str(loc.z) +', '+ str(scl.x) + '\n')
+
+f.close()
