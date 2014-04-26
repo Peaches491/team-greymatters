@@ -13,7 +13,7 @@ a = [0, -depth/2];
 b = [-L, -depth/2];
 c = [-L/2, -depth/2+H];
 
-[C R] = calcCircle(a,b,c)
+[C R] = calcCircle(a,b,c);
 
 rout = R + width/2;
 rin  = R - width/2;
