@@ -1,4 +1,4 @@
-function [ bar ] = checkPoints( sphere_vec, point )
+function [ bar ] = checkPoints( sphere_vec, point, r, Tc)
 %CHECKPOINTS Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -8,6 +8,9 @@ function [ bar ] = checkPoints( sphere_vec, point )
     
     bar = sum(reshape(this, size(sphere_vec,1), size(point,1)))' > 0;
     
+    if nargin > 2
+        bar = max(bar, hypot(point(:, 2), point(:, 3)) > r);
+    end
     
     
 end

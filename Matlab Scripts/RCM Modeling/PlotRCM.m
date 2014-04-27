@@ -1,8 +1,14 @@
-function [] = PlotRCM(X, Y, Z, theta1, theta2, L1, L2, r)
+function [] = PlotRCM(X, Y, Z, theta1, theta2, L1, L2, r, X0,Y0,Z0)
+
+    if nargin < 9 
+        X0 = 0;
+        Y0 = 0;
+        Z0 = 0;
+    end
 
     R1 = L1;
     R2 = L2;
-
+    
     T1 = DHTransform(Z,0,0,-pi/2);
     T2 = DHTransform(Y,sym(pi/2),0,pi/2);
     T3 = DHTransform(X,sym(pi),0,pi/2);
@@ -12,12 +18,12 @@ function [] = PlotRCM(X, Y, Z, theta1, theta2, L1, L2, r)
     T7 = DHTransform(0,pi/2+theta2,r,-pi/2);  
 
     
-    plot3([0,0], [0,0], [Z,0],'blue');
-    scatter3(0,0,Z,'fill','blue');
+    plot3([X0,X0], [Y0,Y0], [Z,Z0],'blue');
+    scatter3(X0,Y0,Z,'fill','blue');
     
     p1 = T1*[0,0,0,1]';
     p2 = T1*T2*[0,0,0,1]';
-    plot3([p1(1),p2(1)], [p1(2),p2(2)], [p1(3),p2(3)],'green');
+    plot3([X0,p2(1)], [Y0,p2(2)], [Z,p2(3)],'green');
     scatter3(p2(1),p2(2),p2(3),'fill','green');
    
     p3 = T1*T2*T3*[0,0,0,1]';
