@@ -1,8 +1,20 @@
-function [L1X,L1Y,L1Z,L2X,L2Y,L2Z] = configRCM(L1, L2, L3, Tz, Ty, Tx, theta1, theta2, L1m, L1bm, L2m, L2bm)
+function [L1X,L1Y,L1Z,L2X,L2Y,L2Z] = configRCM(L1, L2, L3, Tz, Ty, Tx, theta1, theta2, L1m, L1bm, L2m, L2bm, X0,Y0,Z0)
  %% Transfroms for RCM Position
 global endLength 
 global depth
 global spacing
+
+
+if nargin <= 12
+    X0 = 0;
+    Y0 = 0;
+    Z0 = 0;
+end
+
+Tz = Tz-Z0;
+Ty = Ty-Y0;
+Tx = Tx-X0;
+
 
 L1X = L1m(1:4, :);
 L1Y = L1m(5:8, :);

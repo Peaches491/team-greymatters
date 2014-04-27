@@ -9,6 +9,7 @@ function [ bar ] = checkPoints( sphere_vec, point, r, Tc)
     bar = sum(reshape(this, size(sphere_vec,1), size(point,1)))' > 0;
     
     if nargin > 2
+        point = bsxfun(@minus, point, Tc);
         bar = max(bar, hypot(point(:, 2), point(:, 3)) > r);
     end
     
