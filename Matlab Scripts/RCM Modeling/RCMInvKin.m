@@ -1,5 +1,5 @@
 function [theta1, theta2, Tx, Ty, Tz] = RCMInvKin(L1, L2, L3, entry, workspace)
-p2p1 = workspace-entry;
+p2p1 = entry-workspace;
 
 dist = sqrt((entry(1)-workspace(1))^2 + (entry(2)-workspace(2))^2 + (entry(3)-workspace(3))^2);
 

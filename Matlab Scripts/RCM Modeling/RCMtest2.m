@@ -9,14 +9,14 @@ depth = .006; % the z depth for all links (material thickness)
 global spacing 
 spacing = .02; % the space between the two sets of four-bars  
 
-L1 = .1;
-L2 = .1;
-L3 = .1;
+L1 = .12;
+L2 = .2;
+L3 = .15;
 r1 = 0;
 r2 = 0;
 
  p1 = [0,.1,.1]; %entry location 
- p2 = [0,.05,0]; %workspace location 
+ p2 = [.05,.05,0]; %workspace location 
 % 
 % 
 [theta1, theta2, Tx, Ty, Tz] = RCMInvKin(L1, L2, L3, p1, p2);
