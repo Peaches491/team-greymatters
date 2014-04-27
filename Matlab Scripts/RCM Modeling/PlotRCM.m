@@ -3,13 +3,13 @@ function [] = PlotRCM(X, Y, Z, theta1, theta2, L1, L2, r)
 R1 = L1;
 R2 = L2;
 
- T1 = DHTransform(Z,0,0,-sym(pi)/2);
- T2 = DHTransform(Y,sym(pi/2),0,sym(pi)/2);
- T3 = DHTransform(X,sym(pi),0,sym(pi)/2);
- T4 = DHTransform(0,theta1,0,sym(pi)/2);
+ T1 = DHTransform(Z,0,0,-pi/2);
+ T2 = DHTransform(Y,sym(pi/2),0,pi/2);
+ T3 = DHTransform(X,sym(pi),0,pi/2);
+ T4 = DHTransform(0,theta1,0,pi/2);
  T5 = DHTransform(0,theta2,R1,0);
- T6 = DHTransform(0,(sym(pi)/2)-theta2,R2,0);
- T7 = DHTransform(0,sym(pi)/2+theta2,r,-sym(pi)/2);  
+ T6 = DHTransform(0,(pi/2)-theta2,R2,0);
+ T7 = DHTransform(0,pi/2+theta2,r,-pi/2);  
  
  plot3([0,0], [0,0], [Z,0],'blue');
 
