@@ -71,9 +71,9 @@ end
  H = [ R, p; 0 0 0 1];
  [X Y Z] = TransformLink(X, Y, Z, H);
 %For Debug                    
-clf;
-fill3(X, Y, Z, 'y');
-axis([-5, 1, -5, 5, 0, 2]);
-axis equal
+% clf;
+% fill3(X, Y, Z, 'y');
+% axis([-5, 1, -5, 5, 0, 2]);
+% axis equal
 
 end

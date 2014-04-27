@@ -9,7 +9,7 @@ Tx = workspace(1)- p2p1(1)*r;
 Ty = workspace(2)- p2p1(2)*r - L2; 
 Tz = workspace(3)- p2p1(3)*r; 
 
-theta2 = atan2((entry(2)-workspace(2)),(entry(1)-workspace(1)));
-theta1 = atan2((entry(1)-workspace(1)),(entry(3)-workspace(3)));
+theta2 = atan2(p2p1(2), hypot(p2p1(1), p2p1(3)) );
+theta1 = atan2(p2p1(1), p2p1(3));
 
 
