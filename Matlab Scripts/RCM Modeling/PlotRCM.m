@@ -1,4 +1,4 @@
-function [] = PlotRCM(X, Y, Z, theta1, theta2, r, L1, L2)
+function [] = PlotRCM(X, Y, Z, theta1, theta2, L1, L2, r)
 
 R1 = L1;
 R2 = L2;
@@ -12,7 +12,6 @@ R2 = L2;
  T7 = DHTransform(0,sym(pi)/2+theta2,r,-sym(pi)/2);  
  
  plot3([0,0], [0,0], [Z,0],'blue');
-    axis([-6 6 -6 6 -6 6])
     hold on
     scatter3(0,0,Z,'fill','blue');
     
