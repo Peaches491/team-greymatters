@@ -4,9 +4,11 @@ global endLength
 global depth
 global spacing
 
+div = 10;
+
 %% Link 1
-[L1S1X L1S1Y L1S1Z] = makeLink(L1,r1,30,1);
-[L1S2X L1S2Y L1S2Z] = makeLink(L1,r1,30,1);
+[L1S1X L1S1Y L1S1Z] = makeLink(L1,r1,div,1);
+[L1S2X L1S2Y L1S2Z] = makeLink(L1,r1,div,1);
 
 %  R = getRotation('X', pi);
 %  p = [ 0; 0; 0];
@@ -15,8 +17,8 @@ global spacing
  
  
  %% Link 1
-[L1S1bX L1S1bY L1S1bZ] = makeLink(L1,r1,30,0);
-[L1S2bX L1S2bY L1S2bZ] = makeLink(L1,r1,30,0);
+[L1S1bX L1S1bY L1S1bZ] = makeLink(L1,r1,div,0);
+[L1S2bX L1S2bY L1S2bZ] = makeLink(L1,r1,div,0);
 
 %  R = getRotation('X', pi);
 %  p = [ 0; 0; 0];
@@ -25,8 +27,8 @@ global spacing
  
 
 %% Link 2;    
-[L2S1X L2S1Y L2S1Z] = makeLink(L2,r2,30, 1);
-[L2S2X L2S2Y L2S2Z] = makeLink(L2,r2,30, 1);
+[L2S1X L2S1Y L2S1Z] = makeLink(L2,r2,div, 1);
+[L2S2X L2S2Y L2S2Z] = makeLink(L2,r2,div, 1);
 
 %  R = getRotation('X', pi);
 %  p = [ 0; 0; 0];
@@ -40,8 +42,8 @@ global spacing
  [L2S2X L2S2Y L2S2Z] = TransformLink(L2S2X, L2S2Y, L2S2Z, H);
  
 %% Link 2b
-[L2S1bX L2S1bY L2S1bZ] = makeLink(L2,r2,30, 0);
-[L2S2bX L2S2bY L2S2bZ] = makeLink(L2,r2,30, 0);
+[L2S1bX L2S1bY L2S1bZ] = makeLink(L2,r2,div, 0);
+[L2S2bX L2S2bY L2S2bZ] = makeLink(L2,r2,div, 0);
 
   R = getRotation('Y', pi);
  p = [ -L2; 0; 0];
