@@ -1,6 +1,6 @@
 import bpy
 
-f = open('head.spheres', 'w')
+f = open('head_low.spheres', 'w')
 
 names = [o for o in bpy.data.objects.keys() if 'Sphere' in o]
 
