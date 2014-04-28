@@ -1,4 +1,5 @@
-function [x, p] = iterIK(L1, L2, entry, goal, Xb, Yb, Zb, L1m, L1bm, L2m, L2bm, sphere_vec, bore, f)
+function [num_coll, ik_vec] = iterIK(L1, L2, entry, goal, Xb, Yb, Zb, L1m, L1bm, L2m, L2bm, sphere_vec, bore)
+
 resolution = .01;
 L3max = L1;
 
@@ -8,7 +9,8 @@ slope = (entry-goal)/dist;
 
 
 
-p = ((0:resolution:L3max)'*slope)'
+p = ((0:resolution:L3max)'*slope)';
+ik_vec = zeros(1, size(p, 1));
 px = p(1,:);
 py = p(2,:);
 pz = p(3,:);
@@ -19,18 +21,18 @@ pz = p(3,:);
     double([L1Y, L2Y]), double([L1Z, L2Z]));
 
 
-set(0, 'currentfigure', f);
-scatter3(p(1, :), p(2, :), p(3, :), 20, 'filled')
+% set(0, 'currentfigure', f);
+% scatter3(p(1, :), p(2, :), p(3, :), 20, 'filled')
 
 
-test = @(px, py, pz) eval(px , py, pz, Xr, Yr, Zr,sphere_vec, bore, f);
+test = @(px, py, pz) eval(px , py, pz, Xr, Yr, Zr,sphere_vec, bore);
 
 x = arrayfun(test,px, py, pz);
-
+num_coll = sum(abs(x-1));
 
 end
 
-function [x] = eval(px, py, pz, Xr, Yr, Zr, sphere_vec, bore, f)
+function [x] = eval(px, py, pz, Xr, Yr, Zr, sphere_vec, bore)
 
 Xp = Xr+px;
 Yp = Yr+py;

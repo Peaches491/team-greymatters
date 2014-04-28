@@ -47,9 +47,7 @@ Zb = -0.15;
 
 [L1m, L1bm, L2m, L2bm] = makeRCM(L1, L2, r1, r2);
 
-f = clf();
-hold on;
-iterIK(L1, L2, entry, goal, Xb, Yb, Zb, L1m, L1bm, L2m, L2bm, sphere_vec, bore, f);
+x = iterIK(L1, L2, entry, goal, Xb, Yb, Zb, L1m, L1bm, L2m, L2bm, sphere_vec, bore)
 
 
 
