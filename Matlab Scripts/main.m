@@ -23,7 +23,7 @@ plotSetup((bore/2)*1.2);
 % plotSetup((bore/2)*0.8);
 % view(-90, 42)
 % view(0, 0);
-view(0, 0);
+view(-90, 55);
 % view(236, 16);
 % camproj('orthographic');
 
@@ -44,12 +44,12 @@ sphere_vec = tfSpheres(spheres, TS);
 
 
 
-[x, y, z] = entryFromPolar(-40, 15, sphere_vec);
+[x, y, z] = entryFromPolar(30, 35, sphere_vec);
 entry = [x, y, z];
 scatter3(entry(1), entry(2), entry(3), 120, 'filled');
-goal = [0.05896, 0.02894, 0.064]; %workspace location
+goal = [0.06696, 0.03294, 0.074]; %workspace location
 
-ws = makeWorkspace(goal, 0.025, 2);
+ws = makeWorkspace(goal, 0.025, 3);
 scatter3(ws(:, 1), ws(:, 2), ws(:, 3), 20, 'r', 'filled');
 
 
