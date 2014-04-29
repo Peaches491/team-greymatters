@@ -8,6 +8,13 @@ function [num_coll, ik_vec] = iterIK(L1, L2, L3max, entry, goal, Xb, Yb, Zb, L1m
     Tzmin = 0;
     Txmin = 0;
     Tymin = 0;
+    
+%     Tzmax = .0;
+%     Txmax = .0;
+%     Tymax = .0;
+%     Tzmin = -.1;
+%     Txmin = -.2;
+%     Tymin = -.03;
 
     dist = sqrt(sum((entry-goal).^2));
     slope = (entry-goal)/dist;
@@ -52,13 +59,15 @@ function [num_coll, ik_vec] = iterIK(L1, L2, L3max, entry, goal, Xb, Yb, Zb, L1m
         Yp = Yr+py(i);
         Zp = Zr+pz(i);
                 
-        if(Tz+pz(i)-Zb > Tzmax || Ty+py(i)-Yb > Tymax || Tx+px(i)-Xb > Txmax ||...
-                Tz+pz(i)-Zb < Tzmin || Ty+py(i)-Yb < Tymin || Tx+px(i)-Xb < Txmin)
+%         if(Tz+pz(i)-Zb > Tzmax || Ty+py(i)-Yb > Tymax || Tx+px(i)-Xb > Txmax ||...
+%                 Tz+pz(i)-Zb < Tzmin || Ty+py(i)-Yb < Tymin || Tx+px(i)-Xb < Txmin)
+%         if(Tz+pz(i)-Zb > Tzmax || Ty+py(i)-Yb > Tymax || Tx+px(i)-Xb > Txmax ||...
+%             Tz+pz(i)-Zb < Tzmin || Ty+py(i)-Yb < Tymin || Tx+px(i)-Xb < Txmin)
             
-            x(i) = 1;
-        else
+%             x(i) = 1;
+%         else
             x(i) = max(checkPoints(sphere_vec, [Xp; Yp; Zp]', bore/2, [0, 0, 0.03]));
-        end
+%         end
 %         if (~(exist('ik_vec','var'))) && x(i) == 0
 %             r = sqrt(sum(p(:, i).^2));
 %             ik_vec = [theta1, theta2, Tx+px(i), Ty+py(i), Tz+pz(i), r];

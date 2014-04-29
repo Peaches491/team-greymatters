@@ -28,5 +28,9 @@ function [ fitness ] = evaluateConfig( cfg, ws, entry, sphere_vec, bore, p)
     
     fitness = (p)*((sum(collision_ratios ~= 0)/size(ws, 1) )) ...
         + (1-p)*(mean(collision_ratios));
+    
+    if (sum(collision_ratios ~= 0)/size(ws, 1) ) >= 1
+        fitness = fitness + norm([L1, L2]);
+    end
 end
 
