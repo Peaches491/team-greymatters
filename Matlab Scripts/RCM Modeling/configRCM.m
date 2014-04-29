@@ -11,9 +11,9 @@ if nargin <= 12
     Z0 = 0;
 end
 
-Tz = Tz-Z0;
-Ty = Ty-Y0;
-Tx = Tx-X0;
+% Tz = Tz-Z0;
+% Ty = Ty-Y0;
+% Tx = Tx-X0;
 
 
 L1X = L1m(1:4, :);
