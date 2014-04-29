@@ -1,7 +1,7 @@
 %% Generate Meshes and Plot
 
 clc; 
-%clear all; 
+% clear all; 
 % close all; 
 clf();
 
@@ -26,14 +26,14 @@ plotSetup((bore/2)*1.2);
 % plotSetup((bore/2)*0.8);
 % view(-90, 42)
 % view(0, 0);
-view(-90, 55);
+view(-90, 0);
 % view(236, 16);
 % camproj('orthographic');
 
-L1 = .2;
-L2 = .08;
-r1 = 0.04;
-r2 = 0.025;
+% L1 = .2;
+% L2 = .08;
+% r1 = 0.04;
+% r2 = 0.025;
 L3 = .15;
 
 TS = eye(4);
@@ -59,7 +59,7 @@ scatter3(ws(:, 1), ws(:, 2), ws(:, 3), 80, 'r', 'filled');
 
 Xb = 0;
 Yb = -0.12;
-Zb = -0.15;
+Zb = -0.05;
 % rcm = rcmConfig(L1, L2, L3, r1, r2, [Xb, Yb, Zb]);
 
 p = 0.5;
@@ -75,9 +75,9 @@ p = 0.5;
 
 
 
-testOpt = @(x) 1-evaluateConfig(...
-    rcmConfig(x(1), x(2), 0.15, x(3), x(4), [Xb, Yb, Zb])...
-    , ws, entry, sphere_vec, bore, p);
+% testOpt = @(x) 1-evaluateConfig(...
+%     rcmConfig(x(1), x(2), 0.15, x(3), x(4), [Xb, Yb, Zb])...
+%     , ws, entry, sphere_vec, bore, p);
 
 % [1:size(population, 2); [population(:).L1]; [population(:).L2]; [population(:).fitness]]'
 
@@ -95,15 +95,15 @@ testOpt = @(x) 1-evaluateConfig(...
 % end
 
 clf();
-L1 = 0.02;
-L2 = 0.1485;
-r1 = 0.02;
-r2 = 0.0843;
+L1 = optimresults.x(1)
+L2 = optimresults.x(2)
+r1 = optimresults.x(3)
+r2 = optimresults.x(4)
 [L1m, L1bm, L2m, L2bm] = makeRCM(L1, L2, r1, r2);
 for x = 1:size(ws, 1)
     g = ws(x, :);
     [theta1, theta2, Tx, Ty, Tz] = RCMInvKin(L1, L2, L3, entry, g, Xb, Yb, Zb);
-    [L1X, L1Y, L1Z, L2X, L2Y, L2Z] = configRCM(L1, L2, L3, Tz, Ty, Tx, theta1, theta2, L1m, L1bm, L2m, L2bm, Xb, Yb, Zb);
+    [L1X, L1Y, L1Z, L2X, L2Y, L2Z] = configRCM(L1, L2, L3, Tx, Ty, Tz, theta1, theta2, L1m, L1bm, L2m, L2bm, Xb, Yb, Zb);
     plotModel(L1X, L1Y, L1Z, L2X, L2Y, L2Z);
     PlotRCM(Tx, Ty, Tz, theta1, theta2 ,L1,L2,L3, Xb, Yb, Zb);
     [Xr, Yr, Zr] = pointsFromPatches(double([L1X, L2X]), double([L1Y, L2Y]), double([L1Z, L2Z]));
@@ -124,6 +124,68 @@ TB(1, 4) = Xb;
 TB(2, 4) = Yb;
 TB(3, 4) = Zb;
 plotCoordTrans(TB, '', 0.06);
+
+light('Position',[1 3 2]); 
+light('Position',[-3 -1 3]); 
+material shiny; 
+
+show_model_trans_stl('Models/newMeshes/brain_low.stl', TS, [1 0.75 0.65], 0.4, 'none');
+show_model_trans_stl('Models/newMeshes/skin_tilt_low.stl', TS, 'white', 0.4, 'none');
+% show_model_trans_stl('Models/newMeshes/skull.stl', TS, 'white', 0.4, 'none');
+
+[Z, Y, X] = cylinder(bore/2);
+Z = Z + 0.03;
+X = (X - 0.5).*0.6;
+surf(X, Y, Z, 'FaceColor', 'b', 'FaceAlpha', 0.1, 'SpecularStrength', 0);
+
+axis equal;
+grid on;
+
+
+
+%%
+
+clf();
+axis equal;
+grid on;
+
+
+Xb
+Yb
+Zb
+
+%  Tx = 0.1;
+%  Ty = 0.1;
+%  Tz = 0.1;
+% 
+% L1 = 0.12;
+% L2 = 0.1485;
+% r1 = 0.02;
+% r2 = 0.0243;
+
+
+
+L1 = 0.02
+L2 = 0.235
+r1 = 0.128
+r2 = 0.25
+% L1 = optimresults.x(1)
+% L2 = optimresults.x(2)
+% r1 = optimresults.x(3)
+% r2 = optimresults.x(4)
+
+% [theta1, theta2, Tx, Ty, Tz] = RCMInvKin(L1, L2, L3, entry, g, Xb, Yb, Zb);
+
+[L1m, L1bm, L2m, L2bm] = makeRCM(L1, L2, r1, r2);
+[L1X, L1Y, L1Z, L2X, L2Y, L2Z] = configRCM(L1, L2, L3, Tz, Ty, Tx, theta1, theta2, L1m, L1bm, L2m, L2bm, Xb, Yb, Zb);
+plotModel(L1X, L1Y, L1Z, L2X, L2Y, L2Z);
+PlotRCM(Tx, Ty, Tz, theta1, theta2 ,L1,L2,L3, Xb, Yb, Zb);
+
+plotSetup((bore/2)*1.2);
+
+view( -60, 20);
+
+
 
 light('Position',[1 3 2]); 
 light('Position',[-3 -1 3]); 
