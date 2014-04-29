@@ -2,13 +2,14 @@ function [num_coll, ik_vec] = iterIK(L1, L2, L3max, entry, goal, Xb, Yb, Zb, L1m
     
     resolution = .01;
     
-    Tzmax = .1;
-    Txmax = .2;
-    Tymax = .03;
-    Tzmin = 0;
-    Txmin = 0;
-    Tymin = 0;
-
+    Txmax = .2  +Xb;
+    Tymax = .03 +Yb;
+    Tzmax = .1  +Zb;
+    
+    Txmin = 0   +Xb;
+    Tymin = 0   +Yb;
+    Tzmin = 0   +Zb;
+ 
     dist = sqrt(sum((entry-goal).^2));
     slope = (entry-goal)/dist;
 
@@ -52,9 +53,8 @@ function [num_coll, ik_vec] = iterIK(L1, L2, L3max, entry, goal, Xb, Yb, Zb, L1m
         Yp = Yr+py(i);
         Zp = Zr+pz(i);
                 
-        if(Tz+pz(i)-Zb > Tzmax || Ty+py(i)-Yb > Tymax || Tx+px(i)-Xb > Txmax ||...
-                Tz+pz(i)-Zb < Tzmin || Ty+py(i)-Yb < Tymin || Tx+px(i)-Xb < Txmin)
-            
+         if(Tx+px(i) > Txmax || Ty+py(i) > Tymax || Tz+pz(i) > Tzmax ||...
+       Tx < Txmin+px(i) || Ty < Tymin+py(i) || Tz+pz(i) < Tzmin)
             x(i) = 1;
         else
             x(i) = max(checkPoints(sphere_vec, [Xp; Yp; Zp]', bore/2, [0, 0, 0.03]));
