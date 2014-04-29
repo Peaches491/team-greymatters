@@ -2,6 +2,7 @@ function [num_coll, ik_vec] = iterIK(L1, L2, L3max, entry, goal, Xb, Yb, Zb, L1m
     
     resolution = .01;
     
+
     Txmax = .2  +Xb;
     Tymax = .05 +Yb;
     Tzmax = .2  +Zb;
@@ -52,12 +53,13 @@ function [num_coll, ik_vec] = iterIK(L1, L2, L3max, entry, goal, Xb, Yb, Zb, L1m
     
     x = zeros(1, size(px, 2));
     for i = 1:size(px, 2)
+
         Xp = Xr-px(i);
         Yp = Yr-py(i);
         Zp = Zr-pz(i);
           
-         if(Tx+px(i) > Txmax || Ty+py(i) > Tymax || Tz+pz(i) > Tzmax ||...
-       Tx < Txmin+px(i) || Ty < Tymin+py(i) || Tz+pz(i) < Tzmin)
+        if(Tx+px(i) > Txmax || Ty+py(i) > Tymax || Tz+pz(i) > Tzmax ||...
+            Tx < Txmin+px(i) || Ty < Tymin+py(i) || Tz+pz(i) < Tzmin)
             x(i) = 1;
         else
             x(i) = max(checkPoints(sphere_vec, [Xp; Yp; Zp]', bore/2, [0, 0, 0.03]));
