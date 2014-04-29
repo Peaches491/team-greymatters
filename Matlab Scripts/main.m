@@ -220,23 +220,31 @@ surf(X, Y, Z, 'FaceColor', 'b', 'FaceAlpha', 0.1, 'SpecularStrength', 0);
 %%
 close all;
 addpath('renders')
-addpath('renders/trial1')
+addpath('renders/trial2')
+
+folder = 'trial2';
 
 optimproblem.options = options;
-%     optimproblem.options.Generations = 2;
+optimproblem.options.Generations = 2;
 optimproblem.fitnessfcn = ...
     @(x)-1*evaluateConfig(rcmConfig(x(1),x(2),0.15,x(3),x(4),[Xb,Yb,Zb]),...
     ws,entry,sphere_vec,bore,p);
     
-for i = 1:25
+for i = 1:5
     
     X = ga(optimproblem);
 
     h = gcf;
-    saveas(h,strcat('renders/trial1/iter-', num2str(i), '-graphs'),'png');
+    saveas(h,strcat('renders/', folder, '/iterGraph-', num2str(i)), 'png');
+    clf();
     plotSolution(X, L3, entry, ws, bore, sphere_vec)
     h = gcf;
-    saveas(h,strcat('renders/trial1/iter-', num2str(i)),'png');
+    saveas(h,strcat('renders/', folder, '/iterLink-', num2str(i)), 'png');
 end
+linkage = X
 
 
+%%
+X
+% plotSolution(X, L3, entry, ws, bore, sphere_vec)
+optimproblem.fitnessfcn(X)

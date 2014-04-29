@@ -1,4 +1,4 @@
-function [num_coll, ik_vec] = iterIK(L1, L2, L3max, entry, goal, Xb, Yb, Zb, L1m, L1bm, L2m, L2bm, sphere_vec, bore)
+function [num_coll, numT_coll, ikL3] = iterIK(L1, L2, L3max, entry, goal, Xb, Yb, Zb, L1m, L1bm, L2m, L2bm, sphere_vec, bore)
     
     resolution = .01;
     
@@ -51,7 +51,8 @@ function [num_coll, ik_vec] = iterIK(L1, L2, L3max, entry, goal, Xb, Yb, Zb, L1m
     
 %     x = arrayfun(test, px, py, pz, 1:size(px, 2));
     
-    x = zeros(1, size(px, 2));
+    TColls  = zeros(1, size(px, 2));
+    Colls = zeros(1, size(px, 2));
     for i = 1:size(px, 2)
 
         Xp = Xr-px(i);
@@ -60,9 +61,11 @@ function [num_coll, ik_vec] = iterIK(L1, L2, L3max, entry, goal, Xb, Yb, Zb, L1m
           
         if(Tx+px(i) > Txmax || Ty+py(i) > Tymax || Tz+pz(i) > Tzmax ||...
             Tx < Txmin+px(i) || Ty < Tymin+py(i) || Tz+pz(i) < Tzmin)
-            x(i) = 1;
+            Colls(i) = 1;
+            TColls(i) = 1;
+            
         else
-            x(i) = max(checkPoints(sphere_vec, [Xp; Yp; Zp]', bore/2, [0, 0, 0.03]));
+            Colls(i) = max(checkPoints(sphere_vec, [Xp; Yp; Zp]', bore/2, [0, 0, 0.03]));
         end
 %         if (~(exist('ik_vec','var'))) && x(i) == 0
 %             r = sqrt(sum(p(:, i).^2));
@@ -70,9 +73,16 @@ function [num_coll, ik_vec] = iterIK(L1, L2, L3max, entry, goal, Xb, Yb, Zb, L1m
 %         end
     end
     
-    ik_vec = 0;
+    
+    [c, r, v] = find(((Colls*-1)+1) .* (0:resolution:L3max));
+    ikL3 = median(v);
+    if(isnan(ikL3))
+        ikL3 = 0;
+    end
+    
 %     x
-    num_coll = sum(abs(x-1))/size(px, 2);
+    numT_coll = sum(abs(TColls-1))/size(px, 2);
+    num_coll = sum(abs(Colls-1))/size(px, 2);
 
 end
 

@@ -7,10 +7,10 @@ Xb = 0;
 Yb = -0.12;
 Zb = -0.15;
 
-L1 = x(1)
-L2 = x(2)
-r1 = x(3)
-r2 = x(4)
+L1 = x(1);
+L2 = x(2);
+r1 = x(3);
+r2 = x(4);
 [L1m, L1bm, L2m, L2bm] = makeRCM(L1, L2, r1, r2);
 
 % tees = zeros(size(ws, 1), 3);
