@@ -3,8 +3,8 @@ function [num_coll, ik_vec] = iterIK(L1, L2, L3max, entry, goal, Xb, Yb, Zb, L1m
     resolution = .01;
     
     Txmax = .2  +Xb;
-    Tymax = .03 +Yb;
-    Tzmax = .1  +Zb;
+    Tymax = .05 +Yb;
+    Tzmax = .2  +Zb;
     
     Txmin = 0   +Xb;
     Tymin = 0   +Yb;
@@ -13,11 +13,14 @@ function [num_coll, ik_vec] = iterIK(L1, L2, L3max, entry, goal, Xb, Yb, Zb, L1m
     dist = sqrt(sum((entry-goal).^2));
     slope = (entry-goal)/dist;
 
-    p = ((dist:resolution:L3max)'*slope)';
+    p = ((0:resolution:L3max)'*slope)';
     px = p(1,:);
     py = p(2,:);
     pz = p(3,:);
-    [theta1, theta2, Tx, Ty, Tz] = RCMInvKin(L1, L2, 0, entry, goal, Xb, Yb, Zb);
+    
+    
+    [theta1, theta2, Tx, Ty, Tz] = RCMInvKin(L1, L2, L3max, entry, goal, Xb, Yb, Zb);
+    
     [L1X, L1Y, L1Z, L2X, L2Y, L2Z] = configRCM(L1, L2, 0, Tz, Ty, Tx, ...
         theta1, theta2, L1m, L1bm, L2m, L2bm, Xb, Yb, Zb);
     [Xr, Yr, Zr] = pointsFromPatches(double([L1X, L2X]), ...
@@ -49,10 +52,10 @@ function [num_coll, ik_vec] = iterIK(L1, L2, L3max, entry, goal, Xb, Yb, Zb, L1m
     
     x = zeros(1, size(px, 2));
     for i = 1:size(px, 2)
-        Xp = Xr+px(i);
-        Yp = Yr+py(i);
-        Zp = Zr+pz(i);
-                
+        Xp = Xr-px(i);
+        Yp = Yr-py(i);
+        Zp = Zr-pz(i);
+          
          if(Tx+px(i) > Txmax || Ty+py(i) > Tymax || Tz+pz(i) > Tzmax ||...
        Tx < Txmin+px(i) || Ty < Tymin+py(i) || Tz+pz(i) < Tzmin)
             x(i) = 1;

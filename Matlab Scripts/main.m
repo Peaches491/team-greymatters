@@ -95,24 +95,24 @@ testOpt = @(x) 1-evaluateConfig(...
 %     iterIK(L1, L2, entry, g, Xb, Yb, Zb, L1m, L1bm, L2m, L2bm, sphere_vec, bore);
 % end
 
-clf();
-L1 = 0.02;
-L2 = 0.1485;
-r1 = 0.02;
-r2 = 0.0843;
-[L1m, L1bm, L2m, L2bm] = makeRCM(L1, L2, r1, r2);
+% clf();
+% L1 = 0.2;
+% L2 = 0.1;
+% r1 = 0.2;
+% r2 = 0.1;
+% [L1m, L1bm, L2m, L2bm] = makeRCM(L1, L2, r1, r2);
 
-tees = zeros(size(ws, 1), 3);
-for x = 1:size(ws, 1)
-    g = ws(x, :);
-    [theta1, theta2, Tx, Ty, Tz] = RCMInvKin(L1, L2, L3, entry, g, Xb, Yb, Zb);
-    [L1X, L1Y, L1Z, L2X, L2Y, L2Z] = configRCM(L1, L2, L3, Tz, Ty, Tx, theta1, theta2, L1m, L1bm, L2m, L2bm, Xb, Yb, Zb);
-    plotModel(L1X, L1Y, L1Z, L2X, L2Y, L2Z);
-    tees(x, :) = [Tx, Ty, Tz] - [Xb, Yb, Zb];
-    PlotRCM(Tx, Ty, Tz, theta1, theta2 ,L1,L2,L3, Xb, Yb, Zb);
-    [Xr, Yr, Zr] = pointsFromPatches(double([L1X, L2X]), double([L1Y, L2Y]), double([L1Z, L2Z]));
-    scatter3(Xr, Yr, Zr, 40, checkPoints(sphere_vec, [Xr; Yr; Zr]', bore/2, [0, 0, 0.03]), 'filled');
-end
+% tees = zeros(size(ws, 1), 3);
+% for x = 1:size(ws, 1)
+%     g = ws(x, :);
+%     [theta1, theta2, Tx, Ty, Tz] = RCMInvKin(L1, L2, L3, entry, g, Xb, Yb, Zb);
+%     [L1X, L1Y, L1Z, L2X, L2Y, L2Z] = configRCM(L1, L2, L3, Tz, Ty, Tx, theta1, theta2, L1m, L1bm, L2m, L2bm, Xb, Yb, Zb);
+%     plotModel(L1X, L1Y, L1Z, L2X, L2Y, L2Z);
+%     tees(x, :) = [Tx, Ty, Tz] - [Xb, Yb, Zb];
+%     PlotRCM(Tx, Ty, Tz, theta1, theta2 ,L1,L2,L3, Xb, Yb, Zb);
+%     [Xr, Yr, Zr] = pointsFromPatches(double([L1X, L2X]), double([L1Y, L2Y]), double([L1Z, L2Z]));
+%     scatter3(Xr, Yr, Zr, 40, checkPoints(sphere_vec, [Xr; Yr; Zr]', bore/2, [0, 0, 0.03]), 'filled');
+% end
 
 % [theta1, theta2, Tx, Ty, Tz] = RCMInvKin(L1, L2, L3, entry, ws(1, :), Xb, Yb, Zb);
 % [L1X, L1Y, L1Z, L2X, L2Y, L2Z] = configRCM(L1, L2, L3, Tz, Ty, Tx, theta1, theta2, L1m, L1bm, L2m, L2bm, Xb, Yb, Zb);
@@ -154,20 +154,41 @@ clf();
 plotSetup((bore/2)*1.2);
 view(-90, 55);
 
-Xb = 0;
-Yb = -0.12;
-Zb = -0.15;
+% Xb = 0;
+% Yb = -0.12;
+% Zb = -0.15;
 
-L1 = optimresults.x(1)
-L2 = optimresults.x(2)
-r1 = optimresults.x(3)
-r2 = optimresults.x(4)
+% L1 = optimresults.x(1)
+% L2 = optimresults.x(2)
+% r1 = optimresults.x(3)
+% r2 = optimresults.x(4)
+L1 = 0.25;
+L2 = 0.06;
+r1 = 0.05;
+r2 = 0.0125;
+
 [L1m, L1bm, L2m, L2bm] = makeRCM(L1, L2, r1, r2);
 
+
+
 % tees = zeros(size(ws, 1), 3);
-for x = 1:size(ws, 1)
+    Txmax = .2  +Xb;
+    Tymax = .05 +Yb;
+    Tzmax = .2  +Zb;
+    
+    Txmin = 0   +Xb;
+    Tymin = 0   +Yb;
+    Tzmin = 0   +Zb;
+
+for x = 1:1
     g = ws(x, :);
+    
     [theta1, theta2, Tx, Ty, Tz] = RCMInvKin(L1, L2, L3, entry, g, Xb, Yb, Zb);
+    
+    
+    
+    iterIK(L1, L2, L3, entry, g, Xb, Yb, Zb, L1m, L1bm, L2m, L2bm, sphere_vec, bore)
+    
     [L1X, L1Y, L1Z, L2X, L2Y, L2Z] = configRCM(L1, L2, L3, Tz, Ty, Tx, theta1, theta2, L1m, L1bm, L2m, L2bm, Xb, Yb, Zb);
     plotModel(L1X, L1Y, L1Z, L2X, L2Y, L2Z);
 %     tees(x, :) = [Tx, Ty, Tz] - [Xb, Yb, Zb];
@@ -175,6 +196,19 @@ for x = 1:size(ws, 1)
     [Xr, Yr, Zr] = pointsFromPatches(double([L1X, L2X]), double([L1Y, L2Y]), double([L1Z, L2Z]));
     scatter3(Xr, Yr, Zr, 40, checkPoints(sphere_vec, [Xr; Yr; Zr]', bore/2, [0, 0, 0.03]), 'filled');
 end
+
+scatter3(Tx, Ty, Tz, 200, 'r')
+scatter3(Txmax, Tymax, Tzmax, 200, 'k')
+scatter3(Txmin, Tymin, Tzmin, 200, 'k')
+
+         
+         if(Tx > Txmax || Ty > Tymax || Tz > Tzmax ||...
+       Tx < Txmin || Ty < Tymin || Tz < Tzmin)
+            test = 'out of bounds';
+        else
+            test = 'in bounds';
+         end
+
 
 
 TB = eye(4);
@@ -189,9 +223,9 @@ material shiny;
 
 show_model_trans_stl('Models/newMeshes/brain_low.stl', TS, [1 0.75 0.65], 0.4, 'none');
 show_model_trans_stl('Models/newMeshes/skin_tilt_low.stl', TS, 'white', 0.4, 'none');
-% show_model_trans_stl('Models/newMeshes/skull.stl', TS, 'white', 0.4, 'none');
+show_model_trans_stl('Models/newMeshes/skull.stl', TS, 'white', 0.4, 'none');
 
-[Z, Y, X] = cylinder(bore/2);
-Z = Z + 0.03;
-X = (X - 0.5).*0.6;
-surf(X, Y, Z, 'FaceColor', 'b', 'FaceAlpha', 0.1, 'SpecularStrength', 0);
+% [Z, Y, X] = cylinder(bore/2);
+% Z = Z + 0.03;
+% X = (X - 0.5).*0.6;
+% surf(X, Y, Z, 'FaceColor', 'b', 'FaceAlpha', 0.1, 'SpecularStrength', 0);
