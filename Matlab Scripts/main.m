@@ -1,6 +1,7 @@
 %% Generate Meshes and Plot
 
-clc; clear all; 
+clc; 
+%clear all; 
 % close all; 
 clf();
 
@@ -28,7 +29,6 @@ plotSetup((bore/2)*1.2);
 view(-90, 55);
 % view(236, 16);
 % camproj('orthographic');
-
 
 L1 = .2;
 L2 = .08;
@@ -60,13 +60,26 @@ scatter3(ws(:, 1), ws(:, 2), ws(:, 3), 80, 'r', 'filled');
 Xb = 0;
 Yb = -0.12;
 Zb = -0.15;
-rcm = rcmConfig(L1, L2, L3, r1, r2, [Xb, Yb, Zb]);
-ratios = evaluateConfig(rcm, ws, entry, sphere_vec, bore);
+% rcm = rcmConfig(L1, L2, L3, r1, r2, [Xb, Yb, Zb]);
 
 p = 0.5;
-(p)*((sum(ratios ~= 0)/size(ws, 1) )) + (1-p)*(mean(ratios))
+% rcm.fitness = evaluateConfig(rcm, ws, entry, sphere_vec, bore, p);
+% rcm.fitness
+% 
+% population = rcmConfig.makePopulation(20, 0.15, [Xb, Yb, Zb]);
+% 
+% for x = 1:size(population, 2)
+%     f = evaluateConfig(population(x), ws, entry, sphere_vec, bore, p);
+%     population(x).fitness  = f;
+% end
 
-[ws, ratios']
+
+
+testOpt = @(x) 1-evaluateConfig(...
+    rcmConfig(x(1), x(2), 0.15, x(3), x(4), [Xb, Yb, Zb])...
+    , ws, entry, sphere_vec, bore, p);
+
+% [1:size(population, 2); [population(:).L1]; [population(:).L2]; [population(:).fitness]]'
 
 % 
 % 
@@ -81,6 +94,11 @@ p = 0.5;
 %     iterIK(L1, L2, entry, g, Xb, Yb, Zb, L1m, L1bm, L2m, L2bm, sphere_vec, bore);
 % end
 
+clf();
+L1 = 0.02;
+L2 = 0.1485;
+r1 = 0.02;
+r2 = 0.0843;
 [L1m, L1bm, L2m, L2bm] = makeRCM(L1, L2, r1, r2);
 for x = 1:size(ws, 1)
     g = ws(x, :);
@@ -89,7 +107,7 @@ for x = 1:size(ws, 1)
     plotModel(L1X, L1Y, L1Z, L2X, L2Y, L2Z);
     PlotRCM(Tx, Ty, Tz, theta1, theta2 ,L1,L2,L3, Xb, Yb, Zb);
     [Xr, Yr, Zr] = pointsFromPatches(double([L1X, L2X]), double([L1Y, L2Y]), double([L1Z, L2Z]));
-    scatter3(Xr, Yr, Zr, 40, checkPoints(sphere_vec, [Xr; Yr; Zr]', bore/2, [0, 0, 0.03]), 'filled');
+%     scatter3(Xr, Yr, Zr, 40, checkPoints(sphere_vec, [Xr; Yr; Zr]', bore/2, [0, 0, 0.03]), 'filled');
 end
 
 % [theta1, theta2, Tx, Ty, Tz] = RCMInvKin(L1, L2, L3, entry, ws(1, :), Xb, Yb, Zb);
@@ -120,5 +138,7 @@ Z = Z + 0.03;
 X = (X - 0.5).*0.6;
 surf(X, Y, Z, 'FaceColor', 'b', 'FaceAlpha', 0.1, 'SpecularStrength', 0);
 
+axis equal;
+grid on;
 
 
