@@ -51,13 +51,13 @@ function [num_coll, ik_vec] = iterIK(L1, L2, L3max, entry, goal, Xb, Yb, Zb, L1m
         Xp = Xr+px(i);
         Yp = Yr+py(i);
         Zp = Zr+pz(i);
-        
-        if(Tz+pz(i) > Tzmax || Ty+py(i) > Tymax || Tx+px(i) > Txmax ||...
-                Tz+pz(i) < Tzmin || Ty+py(i) < Tymin || Tx+px(i) < Txmin)
+                
+        if(Tz+pz(i)-Zb > Tzmax || Ty+py(i)-Yb > Tymax || Tx+px(i)-Xb > Txmax ||...
+                Tz+pz(i)-Zb < Tzmin || Ty+py(i)-Yb < Tymin || Tx+px(i)-Xb < Txmin)
             
             x(i) = 1;
         else
-        x(i) = max(checkPoints(sphere_vec, [Xp; Yp; Zp]', bore/2, [0, 0, 0.03]));
+            x(i) = max(checkPoints(sphere_vec, [Xp; Yp; Zp]', bore/2, [0, 0, 0.03]));
         end
 %         if (~(exist('ik_vec','var'))) && x(i) == 0
 %             r = sqrt(sum(p(:, i).^2));
